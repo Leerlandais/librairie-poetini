@@ -1,3 +1,7 @@
-{% extends 'template.html.twig' %}   
+{% extends 'template.html.twig' %}
+{% block stylesheet %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ PUB_DIR }}styles/style.css">
+{% endblock %}
 {% block hero %}If you can see this, all is good{% endblock %}
         
