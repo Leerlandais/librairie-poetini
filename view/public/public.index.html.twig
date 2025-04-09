@@ -3,9 +3,43 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ PUB_DIR }}styles/style.css">
 {% endblock %}
-{% block hero %}
+{% block heroImg %}
     <img src="{{ IMG_DIR }}poetini.png"
          alt="Poëtini Logo"
-         class="max-w-[37%] mx-auto pt-20">
+         class="max-w-[75%] lg:max-w-[37%] mx-auto pt-20">
+{% endblock %}
+
+{% block heroText %}
+    <ul class="w-fit mx-auto pt-20 lg:pt-14 leading-[1.6]] text-sm font-semibold text-gray-700"
+        style="font-weight: 550;">
+        <li>mar 14 &mdash; 19</li>
+        <li>mer 14 &mdash; 19</li>
+        <li>jeu 14 &mdash; 21</li>
+        <li>ven 14 &mdash; 19</li>
+        <li>sam 12 &mdash; 19</li>
+    </ul>
+{% endblock %}
+{% block sectionOne %}
+    <div class="flex flex-col mt-8 w-fit mx-auto gap-y-8 text-center text-sm font-semibold text-gray-700">
+        <div>
+            <p>Rue de Roumanie, 28</p>
+            <p>1060 Bruxelles</p>
+        </div>
+        <div>
+            <p>+32 &lpar;0&rpar; 852 62 36</p>
+        </div>
+        <div>
+            <p><a href="mailto:info@librairie-poetini.be" class="text-green-500">info@librairie-poetini.be</a></p>
+        </div>
+        <div>
+            <p>TVA : BE 0 554 631 548</p>
+        </div>
+        <div class="pb-24">
+            <a href="https://www.librel.be/magasins/Saint-gilles/Poetini-6208/"
+               target="_blank">
+                Reserver un livre
+            </a>
+        </div>
+    </div>
 {% endblock %}
         
