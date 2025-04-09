@@ -4,11 +4,12 @@
     {% block head %}
         {% block meta %}
         {% endblock %}
-        <title>{% block title %}Title{% endblock %}</title>
         {% block stylesheet %}{% endblock %}
+        <title>{% block title %}Title{% endblock %}</title>
     {% endblock %}
 </head>
-<body class={% block bodyClass %}{% endblock %}>{% block body %}
+<body class={% block bodyClass %}{% endblock %}>
+{% block body %}
 
 {% block navBar %}
     {% block connectBtn %} {% endblock %}

@@ -1,2 +1,32 @@
-{% extends 'base.html.twig' %}   
-        
+{% extends 'base.html.twig' %}
+{% block stylesheet %}
+    <script src="https://cdn.tailwindcss.com"></script>
+{% endblock %}
+{% block title %}Librairie Poetini{% endblock %}
+{% block bodyClass %}{% endblock %}
+{% block body %}
+
+    {% block navBar %}
+        {% block connectBtn %} {% endblock %}
+    {% endblock %}
+
+    {% block content %}
+        {% block hero %}
+            {% block heroText %}{% endblock %}
+            {% block heroImg  %}{% endblock %}
+        {% endblock %}
+
+        {% block sectionOne %}{% endblock %} {# Change these names as needed #}
+        {% block sectionTwo %}{% endblock %}
+        {% block sectionThree %}{% endblock %}
+
+
+    {% endblock %}
+
+    {% block footer %}{% endblock %}
+
+    {% block javascript %}{% endblock %}
+
+    {% endblock %}
+
+
