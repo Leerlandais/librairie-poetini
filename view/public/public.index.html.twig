@@ -3,5 +3,9 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ PUB_DIR }}styles/style.css">
 {% endblock %}
-{% block hero %}If you can see this, all is good{% endblock %}
+{% block hero %}
+    <img src="{{ IMG_DIR }}poetini.png"
+         alt="Poëtini Logo"
+         class="max-w-[37%] mx-auto pt-20">
+{% endblock %}
         
