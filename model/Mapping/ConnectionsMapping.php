@@ -9,7 +9,7 @@ class ConnectionsMapping extends AbstractMapping
 {
     private ?int $connections_id;
     private string $connections_ip;
-    private  $connections_time;
+    private string|DateTime  $connections_time;
     private ?bool $connections_librel;
 
     public function getConnectionsId(): int
@@ -34,7 +34,7 @@ class ConnectionsMapping extends AbstractMapping
         $this->connections_ip = $connections_ip;
     }
 
-    public function getConnectionsTime()
+    public function getConnectionsTime() :string|DateTime
     {
         return $this->connections_time;
     }
