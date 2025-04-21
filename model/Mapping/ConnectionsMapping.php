@@ -2,12 +2,14 @@
 
 namespace model\Mapping;
 
+use DateTime;
 use model\Abstract\AbstractMapping;
 
 class ConnectionsMapping extends AbstractMapping
 {
     private ?int $connections_id;
     private string $connections_ip;
+    private  $connections_time;
     private ?bool $connections_librel;
 
     public function getConnectionsId(): int
@@ -32,6 +34,15 @@ class ConnectionsMapping extends AbstractMapping
         $this->connections_ip = $connections_ip;
     }
 
+    public function getConnectionsTime()
+    {
+        return $this->connections_time;
+    }
+
+    public function setConnectionsTime($connections_time): void
+    {
+        $this->connections_time = $connections_time;
+    }
     public function isConnectionsLibrel(): bool
     {
         return $this->connections_librel;

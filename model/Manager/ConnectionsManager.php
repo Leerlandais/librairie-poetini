@@ -9,8 +9,10 @@ class ConnectionsManager extends AbstractManager
 {
     public function addConnection(ConnectionsMapping $connectionsMapping) : void
     {
-        $stmt = $this->db->prepare("INSERT INTO `connections`(`connection_ip`) VALUES (:ip)");
+        $stmt = $this->db->prepare("INSERT INTO `connections`(`connection_ip`, `connection_time`) 
+                                            VALUES (:ip, :time)");
         $stmt->bindValue(":ip", $connectionsMapping->getConnectionsIp());
+        $stmt->bindValue(":time", $connectionsMapping->getConnectionsTime());
         $stmt->execute();
 
     }

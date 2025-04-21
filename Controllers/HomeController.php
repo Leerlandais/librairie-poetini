@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use model\Mapping\ConnectionsMapping;
+use DateTime;
 
 class HomeController extends AbstractController{
 
@@ -11,8 +12,11 @@ class HomeController extends AbstractController{
 
         $ipAddress = $_SERVER['REMOTE_ADDR'];
         if($ipAddress === "::1") $ipAddress = "127.0.0.1";
+        $currentTime = new DateTime();
+        $currentTime = $currentTime->format('Y-m-d H:i:s');
         $connectMapData = [
             "connections_ip" => $ipAddress,
+            "connections_time" => $currentTime
         ];
         $connectMap = new ConnectionsMapping($connectMapData);
         $this->connectionsManager->addConnection($connectMap);
