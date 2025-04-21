@@ -1,7 +1,10 @@
 <?php
 namespace model\Abstract;
+
+use model\Trait\TraitLaundryRoom
 abstract class AbstractMapping
 {
+    use TraitLaundryRoom;
     public function __construct(array $tab)
     {
         $this->hydrate($tab);
