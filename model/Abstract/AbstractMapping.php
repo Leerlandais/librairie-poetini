@@ -1,7 +1,7 @@
 <?php
 namespace model\Abstract;
 
-use model\Trait\TraitLaundryRoom
+use model\Trait\TraitLaundryRoom;
 abstract class AbstractMapping
 {
     use TraitLaundryRoom;

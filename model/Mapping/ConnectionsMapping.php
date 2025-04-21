@@ -6,9 +6,9 @@ use model\Abstract\AbstractMapping;
 
 class ConnectionsMapping extends AbstractMapping
 {
-    private int $connections_id;
+    private ?int $connections_id;
     private string $connections_ip;
-    private bool $connections_librel;
+    private ?bool $connections_librel;
 
     public function getConnectionsId(): int
     {

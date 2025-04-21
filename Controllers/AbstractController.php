@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use model\Manager\ConnectionsManager;
 use model\MyPDO;
 use Twig\Environment;
 
@@ -10,12 +11,12 @@ use Twig\Environment;
 abstract class AbstractController
 {
     protected $twig;
-
+    protected $connectionsManager;
     protected MyPDO $db;
     public function __construct(Environment $twig, MyPDO $db)
     {
         $this->twig = $twig;
-
         $this->db = $db;
+        $this->connectionsManager = new ConnectionsManager($db);
     }
 }
