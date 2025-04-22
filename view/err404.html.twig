@@ -1,0 +1,26 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}{{ parent() }} | Error 404{% endblock %}
+{% block sectionTwo %}
+
+    <div class="text-center no-underline font-bold text-[70px] tracking-[10px] h-1/5 flex items-end justify-center mb-8 pt-8">
+        <h1 class="text-center">
+            Êtes-vous perdu?
+        </h1>
+    </div>
+    <div class="h-1/2 flex items-center justify-center mt-8">
+        <img class="pb-8"
+             src="{{ IMG_DIR }}/404.png"
+             alt="404">
+    </div>
+    <div class="h-12 flex items-center justify-center">
+        <h6 class="text-sm text-sky-500 font-bold">
+            <a href="?route=home">
+                &lpar;Cliquez pour revenir à l'accueil&rpar;
+            </a>
+        </h6>
+    </div>
+
+{% endblock %}
+
+

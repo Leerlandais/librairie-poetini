@@ -17,8 +17,8 @@ class HomeController extends AbstractController
         $currentTime = new DateTime();
         $currentTime = $currentTime->format('Y-m-d H:i:s');
         $connectMapData = [
-            "connections_ip" => $ipAddress,
-            "connections_time" => $currentTime
+            "connection_ip" => $ipAddress,
+            "connection_time" => $currentTime
         ];
         $connectMap = new ConnectionsMapping($connectMapData);
         $this->connectionsManager->addConnection($connectMap);
@@ -37,5 +37,31 @@ class HomeController extends AbstractController
             $this->connectionsManager->logLibrelClick($linkId,$ipAddress);
 
             http_response_code(204);
+    }
+
+    public function notFound() : void
+    {
+        echo $this->twig->render("err404.html.twig", []);
+    }
+
+    public function showLogs() : void
+    {
+        $sessionRole = $_SESSION['role'] ?? null;
+        if(isset($_POST["password"])){
+            $pass = $this->simpleTrim($_POST["password"]);
+            $passCheck = $this->connectionsManager->checkPassword($pass);
+            if(!$passCheck){
+                header("location: ?route=home");
+            }else {
+                $_SESSION['role'] = true;
+                header("location: ?route=displayAll");
+            }
+        }
+
+        $getLogs = $this->connectionsManager->getAllLogsForDisplay();
+        echo $this->twig->render("private/private.logs.html.twig", [
+            'sessionRole' => $sessionRole,
+            'getLogs' => $getLogs
+        ]);
     }
 }

@@ -7,50 +7,50 @@ use model\Abstract\AbstractMapping;
 
 class ConnectionsMapping extends AbstractMapping
 {
-    private ?int $connections_id;
-    private string $connections_ip;
-    private string|DateTime  $connections_time;
-    private ?bool $connections_librel;
+    private ?int $connection_id;
+    private string $connection_ip;
+    private string|DateTime  $connection_time;
+    private ?bool $connection_librel;
 
-    public function getConnectionsId(): int
+    public function getConnectionId(): int
     {
-        return $this->connections_id;
+        return $this->connection_id;
     }
 
-    public function setConnectionsId(int $connections_id): void
+    public function setConnectionId(int $connection_id): void
     {
-        $connections_id = $this->intClean($connections_id);
-        $this->connections_id = $connections_id;
+        $connection_id = $this->intClean($connection_id);
+        $this->connection_id = $connection_id;
     }
 
-    public function getConnectionsIp(): string
+    public function getConnectionIp(): string
     {
-        return $this->connections_ip;
+        return $this->connection_ip;
     }
 
-    public function setConnectionsIp(string $connections_ip): void
+    public function setConnectionIp(string $connection_ip): void
     {
-        $connections_ip = $this->simpleTrim($connections_ip);
-        $this->connections_ip = $connections_ip;
+        $connection_ip = $this->simpleTrim($connection_ip);
+        $this->connection_ip = $connection_ip;
     }
 
-    public function getConnectionsTime() :string|DateTime
+    public function getConnectionTime() :string|DateTime
     {
-        return $this->connections_time;
+        return $this->connection_time;
     }
 
-    public function setConnectionsTime($connections_time): void
+    public function setConnectionTime($connection_time): void
     {
-        $this->connections_time = $connections_time;
+        $this->connection_time = $connection_time;
     }
-    public function isConnectionsLibrel(): bool
+    public function isConnectionLibrel(): bool
     {
-        return $this->connections_librel;
+        return $this->connection_librel;
     }
 
-    public function setConnectionsLibrel(bool $connections_librel): void
+    public function setConnectionLibrel(bool $connection_librel): void
     {
-        $this->connections_librel = $connections_librel;
+        $this->connection_librel = $connection_librel;
     }
 
 

@@ -12,8 +12,8 @@ class ConnectionsManager extends AbstractManager
     {
         $stmt = $this->db->prepare("INSERT INTO `connections`(`connection_ip`, `connection_time`) 
                                             VALUES (:ip, :time)");
-        $stmt->bindValue(":ip", $connectionsMapping->getConnectionsIp());
-        $stmt->bindValue(":time", $connectionsMapping->getConnectionsTime());
+        $stmt->bindValue(":ip", $connectionsMapping->getConnectionIp());
+        $stmt->bindValue(":time", $connectionsMapping->getConnectionTime());
         $stmt->execute();
 
     }
@@ -34,5 +34,20 @@ class ConnectionsManager extends AbstractManager
             header("location: /");
         }
 
+    }
+
+    public function getAllLogsForDisplay() : array
+    {
+        $query = $this->db->query("SELECT * FROM `connections` WHERE `connection_ip` != '83.134.101.191' ORDER BY `connection_id` DESC");
+        $logMap = [];
+        while($result = $query->fetch()){
+            $logMap[] = new ConnectionsMapping($result);
+        }
+        return $logMap;
+    }
+
+    public function checkPassword(string $password) : bool
+    {
+        return password_verify($password, password_hash(LOG_PASS, PASSWORD_DEFAULT));
     }
 }
