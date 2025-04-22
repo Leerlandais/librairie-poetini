@@ -38,7 +38,7 @@ $twig->addGlobal('IMG_DIR', IMG_DIR);
 //    'debug' => false,
 // ]);
 // // no DebugExtension online
-
+var_dump($_SESSION);
 try {
    $db = MyPDO::getInstance(DB_DRIVER . ":host=" . DB_HOST . ";dbname=" . DB_NAME . ";port=" . DB_PORT . ";charset=" . DB_CHARSET,
        DB_LOGIN,

@@ -5,13 +5,15 @@ namespace Controllers;
 use model\Mapping\ConnectionsMapping;
 use DateTime;
 
-class HomeController extends AbstractController{
+class HomeController extends AbstractController
+{
 
-    public function index() {
-    global $sessionRole, $errorMessage;
+    public function index()
+    {
+        global $sessionRole, $errorMessage;
 
         $ipAddress = $_SERVER['REMOTE_ADDR'];
-        if($ipAddress === "::1") $ipAddress = "127.0.0.1";
+        if ($ipAddress === "::1") $ipAddress = "127.0.0.1";
         $currentTime = new DateTime();
         $currentTime = $currentTime->format('Y-m-d H:i:s');
         $connectMapData = [
@@ -27,5 +29,13 @@ class HomeController extends AbstractController{
         ]);
     }
 
+    public function trackClick()
+    {
+            $linkId = $_POST['id'];
+            $ipAddress = $_SERVER['REMOTE_ADDR'];
+            if ($ipAddress === "::1") $ipAddress = "127.0.0.1";
+            $this->connectionsManager->logLibrelClick($linkId,$ipAddress);
 
+            http_response_code(204);
+    }
 }

@@ -7,6 +7,7 @@ $router = new RouteManager($twig,$db);
 
 // Register routes
 $router->registerRoute('home', HomeController::class, 'index');
+$router->registerRoute("track-click", HomeController::class, 'trackClick');
 
 // Handle request
 $route = $_GET['route'] ?? 'home'; // use the usual method to set the default page

@@ -26,3 +26,16 @@ librelButton.addEventListener("mouseout", function(event) {
         isPaused = false;
     }
 });
+
+
+
+
+    document.querySelectorAll('.track-click').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            const linkId = this.dataset.linkId;
+
+            navigator.sendBeacon('?route=track-click', new URLSearchParams({ id: linkId }));
+
+        });
+    });
+
