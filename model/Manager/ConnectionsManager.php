@@ -60,8 +60,7 @@ class ConnectionsManager extends AbstractManager
 
     public function getLogCounts() : array
     {
-
-        $query = $this->db->query("SELECT `connection_time` FROM `connections`");
+        $query = $this->db->query("SELECT `connection_time` FROM `connections` WHERE `connection_ip` != '83.134.101.191'");
         $logs = $query->fetchAll(PDO::FETCH_COLUMN);
         $query->closeCursor();
 
