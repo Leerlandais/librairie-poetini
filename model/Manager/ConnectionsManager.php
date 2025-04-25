@@ -47,7 +47,7 @@ class ConnectionsManager extends AbstractManager
 
     public function getAllLogsForDisplay() : array
     {
-        $query = $this->db->query("SELECT * FROM `connections` WHERE `connection_ip` != '83.134.101.191' ORDER BY `connection_id` DESC");
+        $query = $this->db->query("SELECT * FROM `connections` ORDER BY `connection_id` DESC");
         $logMap = [];
         while($result = $query->fetch()){
             $logMap[] = new ConnectionsMapping($result);

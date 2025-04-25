@@ -12,7 +12,7 @@
 
         {% for logs in getLogs %}
             <tr class="border-b border-blue-gray-200">
-                <td class="py-3 px-4">{{ logs.getConnectionIp }}</td>
+                <td class="py-3 px-4">{{ logs.getConnectionIp == "83.134.101.191" ? "Lee" : logs.getConnectionIp }}</td>
                 <td class="py-3 px-4">{{ logs.getConnectionTime }}</td>
                 <td class="py-3 px-4">{{ logs.isConnectionLibrel ? 'True' : 'False' }}</td>
             </tr>
