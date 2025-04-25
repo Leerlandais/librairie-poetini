@@ -16,12 +16,17 @@ class HomeController extends AbstractController
         if ($ipAddress === "::1") $ipAddress = "127.0.0.1";
         $currentTime = new DateTime();
         $currentTime = $currentTime->format('Y-m-d H:i:s');
+        $currentSession = session_id();
         $connectMapData = [
             "connection_ip" => $ipAddress,
+            "connection_session" => $currentSession,
             "connection_time" => $currentTime
         ];
         $connectMap = new ConnectionsMapping($connectMapData);
-        $this->connectionsManager->addConnection($connectMap);
+        $checkExisting = $this->connectionsManager->checkRecentConnect($connectMap);
+        if(!$checkExisting) {
+            $this->connectionsManager->addConnection($connectMap);
+        }
         echo $this->twig->render("public/public.index.html.twig", [
             'sessionRole' => $sessionRole,
             'errorMessage' => $errorMessage,

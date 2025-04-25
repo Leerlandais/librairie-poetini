@@ -9,6 +9,7 @@ class ConnectionsMapping extends AbstractMapping
 {
     private ?int $connection_id;
     private string $connection_ip;
+    private string $connection_session;
     private string|DateTime  $connection_time;
     private ?bool $connection_librel;
 
@@ -32,6 +33,17 @@ class ConnectionsMapping extends AbstractMapping
     {
         $connection_ip = $this->simpleTrim($connection_ip);
         $this->connection_ip = $connection_ip;
+    }
+
+    public function getConnectionSession(): string
+    {
+        return $this->connection_session;
+    }
+
+    public function setConnectionSession(string $connection_session): void
+    {
+        $connection_session = $this->simpleTrim($connection_session);
+        $this->connection_session = $connection_session;
     }
 
     public function getConnectionTime() :string|DateTime

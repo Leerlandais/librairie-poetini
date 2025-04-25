@@ -8,11 +8,20 @@ use Exception;
 
 class ConnectionsManager extends AbstractManager
 {
+    public function checkRecentConnect(ConnectionsMapping $connectMap) : bool
+    {
+        $stmt = $this->db->prepare("SELECT * FROM `connections` WHERE `connection_ip`= ? AND `connection_session` = ?");
+        $stmt->bindValue(1, $connectMap->getConnectionIp());
+        $stmt->bindValue(2, $connectMap->getConnectionSession());
+        $stmt->execute();
+        return $stmt->rowCount() == 1;
+    }
     public function addConnection(ConnectionsMapping $connectionsMapping) : void
     {
-        $stmt = $this->db->prepare("INSERT INTO `connections`(`connection_ip`, `connection_time`) 
-                                            VALUES (:ip, :time)");
+        $stmt = $this->db->prepare("INSERT INTO `connections`(`connection_ip`,  `connection_session`,  `connection_time`) 
+                                            VALUES (:ip, :sess, :time)");
         $stmt->bindValue(":ip", $connectionsMapping->getConnectionIp());
+        $stmt->bindValue(":sess", $connectionsMapping->getConnectionSession());
         $stmt->bindValue(":time", $connectionsMapping->getConnectionTime());
         $stmt->execute();
 
