@@ -67,10 +67,10 @@ class ConnectionsManager extends AbstractManager
 
         $now = new DateTime();
         $counts = [
-            "conn_total" => count($logs),
             "conn_day" => 0,
             "conn_week" => 0,
-            "conn_month" => 0
+            "conn_month" => 0,
+            "conn_total" => count($logs)
         ];
 
         foreach ($logs as $time) {
@@ -98,10 +98,10 @@ class ConnectionsManager extends AbstractManager
         $query->closeCursor();
         $now = new DateTime();
         $counts = [
-            "librel_total" => count($librel),
             "librel_day" => 0,
             "librel_week" => 0,
-            "librel_month" => 0
+            "librel_month" => 0,
+            "librel_total" => count($librel)
         ];
         foreach ($librel as $time) {
             $logTime = new DateTime($time);

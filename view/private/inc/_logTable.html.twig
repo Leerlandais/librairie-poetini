@@ -1,15 +1,37 @@
-<div class="overflow-scroll max-h-[500px]">
     <div class="w-fit mx-auto text-center mb-4">
-        <h3 class="text-2xl mb-4">Visites par Total / Jour / Semaine / Mois :
-            {% for count in logCount %}
-                {{ count }} {% if not loop.last %}/ {% else %} -- {% endif %}
-            {% endfor %}
-            {% for count in libCount %}
-                {{ count }} {% if not loop.last %}/ {% endif %}
-            {% endfor %}
-        </h3>
+        <table class="min-w-full bg-white shadow-md rounded-xl
+                        border border-gray-300 max-h-[500px]
+                        overflow-scroll text-center mb-6">
+            <thead>
+            <tr class="bg-blue-gray-100 text-center text-gray-700 border-2 bg-gray-300">
+                <th class="border-2 border-gray-600" colspan="4">Connections</th>
+                <th class="border-2 border-gray-600" colspan="4">Librel</th>
+            </tr>
+            <tr class="bg-blue-gray-100 text-center text-gray-700 border-2">
+                <th class="border-2 py-3 px-4">Day</th>
+                <th class="border-2 py-3 px-4">Week</th>
+                <th class="border-2 py-3 px-4">Month</th>
+                <th class="border-2 py-3 px-4">Total</th>
+                <th class="border-2 py-3 px-4">Day</th>
+                <th class="border-2 py-3 px-4">Week</th>
+                <th class="border-2 py-3 px-4">Month</th>
+                <th class="border-2 py-3 px-4">Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {% for count in logCount %}
+                    <td>{{ count }}</td>
+                {% endfor %}
+                {% for count in libCount %}
+                    <td>{{ count }}</td>
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
     <a href="?route=logout" class="text-blue-500">Leave</a>
     </div>
+<div class="overflow-scroll max-h-[500px]">
     <table class="min-w-full bg-white shadow-md rounded-xl border border-gray-300 max-h-[500px] overflow-scroll text-center">
         <thead>
         <tr class="bg-blue-gray-100 text-center text-gray-700">
