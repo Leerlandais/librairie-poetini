@@ -24,17 +24,19 @@ spl_autoload_register(function ($class) {
 require_once PROJECT_DIRECTORY.'/vendor/autoload.php';
 $loader = new FilesystemLoader(PROJECT_DIRECTORY.'/view/');
 // Dev version
-/*
+
 $twig = new Environment($loader, [
   'debug' => true,
 ]);
 $twig->addExtension(new \Twig\Extension\DebugExtension());
-*/
+
 // // Prod version
+/*
 $twig = new Environment($loader, [
    'cache' => '../cache/Twig',
    'debug' => false,
 ]);
+*/
 // // no DebugExtension online
 $twig->addGlobal('PUB_DIR', PUB_DIR);
 $twig->addGlobal('PROJ_DIR', PROJECT_DIRECTORY);

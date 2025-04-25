@@ -1,6 +1,10 @@
 <div class="overflow-scroll max-h-[500px]">
-    <h3 class="text-3xl"></h3>
-    <table class="min-w-full bg-white shadow-md rounded-xl border border-gray-300 max-h-[500px] overflow-scroll">
+    <h3 class="text-2xl mb-4">Visites par Total / Jour / Semaine / Mois :
+    {% for count in logCount %}
+        {{ count }} {% if not loop.last %}/{% endif %}
+    {% endfor %}
+    </h3>
+    <table class="min-w-full bg-white shadow-md rounded-xl border border-gray-300 max-h-[500px] overflow-scroll text-center">
         <thead>
         <tr class="bg-blue-gray-100 text-center text-gray-700">
             <th class="py-3 px-4">IP Address</th>

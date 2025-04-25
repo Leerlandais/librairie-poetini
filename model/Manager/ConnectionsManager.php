@@ -5,6 +5,9 @@ namespace model\Manager;
 use model\Abstract\AbstractManager;
 use model\Mapping\ConnectionsMapping;
 use Exception;
+use model\MyPDO;
+use DateTime;
+use PDO;
 
 class ConnectionsManager extends AbstractManager
 {
@@ -53,6 +56,39 @@ class ConnectionsManager extends AbstractManager
             $logMap[] = new ConnectionsMapping($result);
         }
         return $logMap;
+    }
+
+    public function getLogCounts() : array
+    {
+
+        $query = $this->db->query("SELECT `connection_time` FROM `connections`");
+        $logs = $query->fetchAll(PDO::FETCH_COLUMN);
+        $query->closeCursor();
+
+        $now = new DateTime();
+        $counts = [
+            "conn_total" => count($logs),
+            "conn_day" => 0,
+            "conn_week" => 0,
+            "conn_month" => 0
+        ];
+
+        foreach ($logs as $time) {
+            $logTime = new DateTime($time);
+
+            if ($logTime->format('Y-m-d') === $now->format('Y-m-d')) {
+                $counts["conn_day"]++;
+            }
+
+            if ($logTime->format('o-W') === $now->format('o-W')) {
+                $counts["conn_week"]++;
+            }
+
+            if ($logTime->format('Y-m') === $now->format('Y-m')) {
+                $counts["conn_month"]++;
+            }
+        }
+        return $counts;
     }
 
     public function checkPassword(string $password) : bool

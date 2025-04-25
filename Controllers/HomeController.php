@@ -64,9 +64,11 @@ class HomeController extends AbstractController
         }
 
         $getLogs = $this->connectionsManager->getAllLogsForDisplay();
+        $logCount = $this->connectionsManager->getLogCounts();
         echo $this->twig->render("private/private.logs.html.twig", [
             'sessionRole' => $sessionRole,
-            'getLogs' => $getLogs
+            'getLogs' => $getLogs,
+            'logCount' => $logCount,
         ]);
     }
 }
