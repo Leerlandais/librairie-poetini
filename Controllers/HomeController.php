@@ -65,10 +65,19 @@ class HomeController extends AbstractController
 
         $getLogs = $this->connectionsManager->getAllLogsForDisplay();
         $logCount = $this->connectionsManager->getLogCounts();
+        $libCount = $this->connectionsManager->getLibrelCount();
         echo $this->twig->render("private/private.logs.html.twig", [
             'sessionRole' => $sessionRole,
             'getLogs' => $getLogs,
             'logCount' => $logCount,
+            'libCount' => $libCount,
         ]);
+    }
+
+    public function logout() : void
+    {
+        $this->connectionsManager->logoutUser();
+        header("Location: ./");
+        exit;
     }
 }

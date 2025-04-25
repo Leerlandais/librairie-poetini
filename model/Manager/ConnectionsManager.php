@@ -91,8 +91,52 @@ class ConnectionsManager extends AbstractManager
         return $counts;
     }
 
+    public function getLibrelCount() : array
+    {
+        $query = $this->db->query("SELECT `connection_time` FROM `connections` WHERE `connection_librel` = 1");
+        $librel = $query->fetchAll(PDO::FETCH_COLUMN);
+        $query->closeCursor();
+        $now = new DateTime();
+        $counts = [
+            "librel_total" => count($librel),
+            "librel_day" => 0,
+            "librel_week" => 0,
+            "librel_month" => 0
+        ];
+        foreach ($librel as $time) {
+            $logTime = new DateTime($time);
+
+            if ($logTime->format('Y-m-d') === $now->format('Y-m-d')) {
+                $counts["librel_day"]++;
+            }
+
+            if ($logTime->format('o-W') === $now->format('o-W')) {
+                $counts["librel_week"]++;
+            }
+
+            if ($logTime->format('Y-m') === $now->format('Y-m')) {
+                $counts["librel_month"]++;
+            }
+        }
+        return $counts;
+    }
+
     public function checkPassword(string $password) : bool
     {
         return password_verify($password, password_hash(LOG_PASS, PASSWORD_DEFAULT));
+    }
+
+    public function logoutUser() : void
+    {
+        $_SESSION = [];
+
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+        session_destroy();
     }
 }
