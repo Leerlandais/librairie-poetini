@@ -92,7 +92,7 @@ class ConnectionsManager extends AbstractManager
 
     public function getLibrelCount() : array
     {
-        $query = $this->db->query("SELECT `connection_time` FROM `connections` WHERE `connection_librel` = 1");
+        $query = $this->db->query("SELECT `connection_time` FROM `connections` WHERE `connection_librel` = 1 AND `connection_ip` != '83.134.101.191'");
         $librel = $query->fetchAll(PDO::FETCH_COLUMN);
         $query->closeCursor();
         $now = new DateTime();
