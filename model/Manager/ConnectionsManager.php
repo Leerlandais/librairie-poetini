@@ -57,6 +57,23 @@ class ConnectionsManager extends AbstractManager
         }
         return $logMap;
     }
+    public function getDistinctLogsForDisplay() : array
+    {
+        $query = $this->db->query("SELECT c.*
+                                            FROM `connections` c
+                                            INNER JOIN (
+                                                SELECT `connection_ip`, MAX(`connection_id`) AS max_id
+                                                FROM `connections`
+                                                GROUP BY `connection_ip`
+                                            ) latest ON c.`connection_ip` = latest.`connection_ip` AND c.`connection_id` = latest.max_id
+                                            ORDER BY c.`connection_id` DESC;
+                                            ");
+        $logMap = [];
+        while($result = $query->fetch()){
+            $logMap[] = new ConnectionsMapping($result);
+        }
+        return $logMap;
+    }
 
     public function getLogCounts() : array
     {
@@ -64,31 +81,10 @@ class ConnectionsManager extends AbstractManager
         $logs = $query->fetchAll(PDO::FETCH_COLUMN);
         $query->closeCursor();
 
-        $now = new DateTime();
-        $counts = [
-            "conn_day" => 0,
-            "conn_week" => 0,
-            "conn_month" => 0,
-            "conn_total" => count($logs)
-        ];
-
-        foreach ($logs as $time) {
-            $logTime = new DateTime($time);
-
-            if ($logTime->format('Y-m-d') === $now->format('Y-m-d')) {
-                $counts["conn_day"]++;
-            }
-
-            if ($logTime->format('o-W') === $now->format('o-W')) {
-                $counts["conn_week"]++;
-            }
-
-            if ($logTime->format('Y-m') === $now->format('Y-m')) {
-                $counts["conn_month"]++;
-            }
-        }
+        $counts = $this->extractLogData($logs);
         return $counts;
     }
+
 
     public function getLibrelCount() : array
     {
@@ -137,5 +133,33 @@ class ConnectionsManager extends AbstractManager
             );
         }
         session_destroy();
+    }
+
+    private function extractLogData(array $logs) : array
+    {
+        $now = new DateTime();
+        $counts = [
+            "conn_day" => 0,
+            "conn_week" => 0,
+            "conn_month" => 0,
+            "conn_total" => count($logs)
+        ];
+
+        foreach ($logs as $time) {
+            $logTime = new DateTime($time);
+
+            if ($logTime->format('Y-m-d') === $now->format('Y-m-d')) {
+                $counts["conn_day"]++;
+            }
+
+            if ($logTime->format('o-W') === $now->format('o-W')) {
+                $counts["conn_week"]++;
+            }
+
+            if ($logTime->format('Y-m') === $now->format('Y-m')) {
+                $counts["conn_month"]++;
+            }
+        }
+        return $counts;
     }
 }

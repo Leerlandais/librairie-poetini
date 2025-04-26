@@ -1,36 +1,36 @@
-    <div class="w-fit mx-auto text-center mb-4">
-        <table class="min-w-full bg-white shadow-md rounded-xl
+<div class="w-fit mx-auto text-center mb-4">
+    <table class="min-w-full bg-white shadow-md rounded-xl
                         border border-gray-300 max-h-[500px]
                         overflow-scroll text-center mb-6">
-            <thead>
-            <tr class="bg-blue-gray-100 text-center text-gray-700 border-2 bg-gray-300">
-                <th class="border-2 border-gray-600" colspan="4">Connections</th>
-                <th class="border-2 border-gray-600" colspan="4">Librel</th>
-            </tr>
-            <tr class="bg-blue-gray-100 text-center text-gray-700 border-2">
-                <th class="border-2 py-3 px-4">Day</th>
-                <th class="border-2 py-3 px-4">Week</th>
-                <th class="border-2 py-3 px-4">Month</th>
-                <th class="border-2 py-3 px-4">Total</th>
-                <th class="border-2 py-3 px-4">Day</th>
-                <th class="border-2 py-3 px-4">Week</th>
-                <th class="border-2 py-3 px-4">Month</th>
-                <th class="border-2 py-3 px-4">Total</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                {% for count in logCount %}
-                    <td>{{ count }}</td>
-                {% endfor %}
-                {% for count in libCount %}
-                    <td>{{ count }}</td>
-                {% endfor %}
-            </tr>
-            </tbody>
-        </table>
+        <thead>
+        <tr class="bg-blue-gray-100 text-center text-gray-700 border-2 bg-gray-300">
+            <th class="border-2 border-gray-600" colspan="4">Connections</th>
+            <th class="border-2 border-gray-600" colspan="4">Librel</th>
+        </tr>
+        <tr class="bg-blue-gray-100 text-center text-gray-700 border-2">
+            <th class="border-2 py-3 px-4">Day</th>
+            <th class="border-2 py-3 px-4">Week</th>
+            <th class="border-2 py-3 px-4">Month</th>
+            <th class="border-2 py-3 px-4">Total</th>
+            <th class="border-2 py-3 px-4">Day</th>
+            <th class="border-2 py-3 px-4">Week</th>
+            <th class="border-2 py-3 px-4">Month</th>
+            <th class="border-2 py-3 px-4">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for count in logCount %}
+                <td>{{ count }}</td>
+            {% endfor %}
+            {% for count in libCount %}
+                <td>{{ count }}</td>
+            {% endfor %}
+        </tr>
+        </tbody>
+    </table>
     <a href="?route=logout" class="text-blue-500">Leave</a>
-    </div>
+</div>
 <div class="overflow-scroll max-h-[500px]">
     <table class="min-w-full bg-white shadow-md rounded-xl border border-gray-300 max-h-[500px] overflow-scroll text-center">
         <thead>
@@ -51,4 +51,30 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
+<div class="mt-8">
+    <a href="?route=displayAll&type=distinct">
+        <button
+                class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none rounded-full"
+                type="button">
+            Unique IP
+        </button>
+    </a>
+    {#
+    <button
+            class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 bg-gradient-to-tr from-gray-900 to-gray-800 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] rounded-full"
+            type="button">
+        Gradient
+    </button>
+    <button
+            class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 border border-gray-900 text-gray-900 hover:opacity-75 focus:ring focus:ring-gray-300 active:opacity-[0.85] rounded-full"
+            type="button">
+        Outlined
+    </button>
+    <button
+            class="px-6 py-3 font-sans text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-full select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:bg-gray-900/10 active:bg-gray-900/20"
+            type="button">
+        Text
+    </button>
+    #}
 </div>

@@ -49,7 +49,7 @@ class HomeController extends AbstractController
         echo $this->twig->render("err404.html.twig", []);
     }
 
-    public function showLogs() : void
+    public function showLogs($getParams = null) : void
     {
         $sessionRole = $_SESSION['role'] ?? null;
         if(isset($_POST["password"])){
@@ -62,8 +62,15 @@ class HomeController extends AbstractController
                 header("location: ?route=displayAll");
             }
         }
-
-        $getLogs = $this->connectionsManager->getAllLogsForDisplay();
+        $sortType = $getParams["type"] ?? "all";
+        switch ($sortType) {
+            case "distinct" :
+                $getLogs = $this->connectionsManager->getDistinctLogsForDisplay();
+                break;
+            default :
+                $getLogs = $this->connectionsManager->getAllLogsForDisplay();
+                break;
+        }
         $logCount = $this->connectionsManager->getLogCounts();
         $libCount = $this->connectionsManager->getLibrelCount();
         echo $this->twig->render("private/private.logs.html.twig", [
