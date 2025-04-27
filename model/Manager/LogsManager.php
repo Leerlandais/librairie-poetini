@@ -99,9 +99,10 @@ class LogsManager extends AbstractManager
 
     public function recordLoginAttempt(string $ip, bool $success) : void
     {
+        $success = intval($success);
         $stmt = $this->db->prepare("INSERT INTO `logins`(`login_ip`, `login_success`) VALUES (:ip, :success)");
         $stmt->bindValue(":ip", $ip);
-        $stmt->bindValue(":success", $success, PDO::PARAM_INT);
+        $stmt->bindValue(":success", $success);
         $stmt->execute();
 
     }
