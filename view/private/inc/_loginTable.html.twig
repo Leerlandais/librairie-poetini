@@ -1,0 +1,31 @@
+<div class="w-fit mx-auto text-center mb-4">
+    <a href="?route=logout" class="text-blue-500">Leave</a>
+</div>
+<div class="overflow-scroll max-h-[500px]">
+    <table class="min-w-full bg-white shadow-md rounded-xl border border-gray-300
+                  max-h-[500px] overflow-scroll text-center"
+           id="logTable">
+        <thead>
+        <tr class="bg-blue-gray-100 text-center text-gray-700">
+            <th class="py-3 px-4 cursor-pointer" onclick="sortTable(0)">IP Address</th>
+            <th class="py-3 px-4 cursor-pointer" onclick="sortTable(1)">Connection</th>
+        </tr>
+        </thead>
+        <tbody class="text-blue-gray-900">
+
+        {% for logs in loginData %}
+            <tr class="border-b border-blue-gray-200">
+                {% if logs.getLoginIp == '95.182.181.127' %}
+                    {% set connectIp = 'Christian' %}
+                {% elseif logs.getLoginIp == '83.134.101.191' %}
+                    {% set connectIp = 'Lee' %}
+                {% else %}
+                    {% set connectIp = logs.getLoginIp %}
+                {% endif %}
+                <td class="py-3 px-4">{{ connectIp }}</td>
+                <td class="py-3 px-4">{{ logs.isLoginSuccess ? 'True' : 'False' }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

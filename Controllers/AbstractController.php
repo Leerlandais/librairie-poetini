@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use model\Manager\ConnectionsManager;
+use model\Manager\LogsManager;
 use model\MyPDO;
 use Twig\Environment;
 use model\Trait\TraitLaundryRoom;
@@ -12,13 +13,15 @@ use model\Trait\TraitLaundryRoom;
 abstract class AbstractController
 {
     use TraitLaundryRoom;
-    protected $twig;
-    protected $connectionsManager;
+    protected Environment $twig;
+    protected ConnectionsManager $connectionsManager;
+    protected LogsManager $logsManager;
     protected MyPDO $db;
     public function __construct(Environment $twig, MyPDO $db)
     {
         $this->twig = $twig;
         $this->db = $db;
         $this->connectionsManager = new ConnectionsManager($db);
+        $this->logsManager = new LogsManager($db);
     }
 }

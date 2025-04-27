@@ -39,7 +39,7 @@ class HomeController extends AbstractController
             $linkId = $_POST['id'];
             $ipAddress = $_SERVER['REMOTE_ADDR'];
             if ($ipAddress === "::1") $ipAddress = "127.0.0.1";
-            $this->connectionsManager->logLibrelClick($linkId,$ipAddress);
+            $this->logsManager->logLibrelClick($linkId,$ipAddress);
 
             http_response_code(204);
     }
@@ -49,45 +49,5 @@ class HomeController extends AbstractController
         echo $this->twig->render("err404.html.twig", []);
     }
 
-    public function showLogs($getParams = null) : void
-    {
-        $sessionRole = $_SESSION['role'] ?? null;
-        if(isset($_POST["password"])){
-            $pass = $this->simpleTrim($_POST["password"]);
-            $passCheck = $this->connectionsManager->checkPassword($pass);
-            if(!$passCheck){
-                header("location: ?route=home");
-            }else {
-                $_SESSION['role'] = true;
-                header("location: ?route=displayAll");
-            }
-        }
-        $sortType = $getParams["type"] ?? "all";
-        $isDistinct = false;
-        switch ($sortType) {
-            case "distinct" :
-                $getLogs = $this->connectionsManager->getDistinctLogsForDisplay();
-                $isDistinct = true;
-                break;
-            default :
-                $getLogs = $this->connectionsManager->getAllLogsForDisplay();
-                break;
-        }
-        $logCount = $this->connectionsManager->getLogCounts();
-        $libCount = $this->connectionsManager->getLibrelCount();
-        echo $this->twig->render("private/private.logs.html.twig", [
-            'sessionRole' => $sessionRole,
-            'getLogs' => $getLogs,
-            'logCount' => $logCount,
-            'libCount' => $libCount,
-            'isDistinct' => $isDistinct,
-        ]);
-    }
 
-    public function logout() : void
-    {
-        $this->connectionsManager->logoutUser();
-        header("Location: ./");
-        exit;
-    }
 }

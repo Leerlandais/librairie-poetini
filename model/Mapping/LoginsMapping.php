@@ -1,6 +1,6 @@
 <?php
 
-namespace model\Manager;
+namespace model\Mapping;
 
 use model\Abstract\AbstractMapping;
 
