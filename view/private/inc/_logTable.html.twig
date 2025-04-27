@@ -32,19 +32,28 @@
     <a href="?route=logout" class="text-blue-500">Leave</a>
 </div>
 <div class="overflow-scroll max-h-[500px]">
-    <table class="min-w-full bg-white shadow-md rounded-xl border border-gray-300 max-h-[500px] overflow-scroll text-center">
+    <table class="min-w-full bg-white shadow-md rounded-xl border border-gray-300
+                  max-h-[500px] overflow-scroll text-center"
+           id="logTable">
         <thead>
         <tr class="bg-blue-gray-100 text-center text-gray-700">
-            <th class="py-3 px-4">IP Address</th>
-            <th class="py-3 px-4">Date and Time</th>
-            <th class="py-3 px-4">Clicked?</th>
+            <th class="py-3 px-4 cursor-pointer" onclick="sortTable(0)">IP Address</th>
+            <th class="py-3 px-4 cursor-pointer" onclick="sortTable(1)">Time</th>
+            <th class="py-3 px-4 cursor-pointer" onclick="sortTable(2)">Libre</th>
         </tr>
         </thead>
         <tbody class="text-blue-gray-900">
 
         {% for logs in getLogs %}
             <tr class="border-b border-blue-gray-200">
-                <td class="py-3 px-4">{{ logs.getConnectionIp == "83.134.101.191" ? "Lee" : logs.getConnectionIp }}</td>
+                {% if logs.getConnectionIp == '95.182.181.127' %}
+                    {% set connectIp = 'Christian' %}
+                {% elseif logs.getConnectionIp == '83.134.101.191' %}
+                    {% set connectIp = 'Lee' %}
+                {% else %}
+                    {% set connectIp = logs.getConnectionIp %}
+                {% endif %}
+                <td class="py-3 px-4">{{ connectIp }}</td>
                 <td class="py-3 px-4">{{ logs.getConnectionTime }}</td>
                 <td class="py-3 px-4">{{ logs.isConnectionLibrel ? 'True' : 'False' }}</td>
             </tr>
@@ -53,13 +62,23 @@
     </table>
 </div>
 <div class="mt-8">
-    <a href="?route=displayAll&type=distinct">
-        <button
-                class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none rounded-full"
-                type="button">
-            Unique IP
-        </button>
-    </a>
+    {% if isDistinct %}
+        <a href="?route=displayAll">
+            <button
+                    class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none rounded-full"
+                    type="button">
+                Tout
+            </button>
+        </a>
+    {% else %}
+        <a href="?route=displayAll&type=distinct">
+            <button
+                    class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none rounded-full"
+                    type="button">
+                Unique IP
+            </button>
+        </a>
+    {% endif %}
     {#
     <button
             class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 bg-gradient-to-tr from-gray-900 to-gray-800 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] rounded-full"

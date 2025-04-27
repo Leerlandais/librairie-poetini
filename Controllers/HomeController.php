@@ -63,9 +63,11 @@ class HomeController extends AbstractController
             }
         }
         $sortType = $getParams["type"] ?? "all";
+        $isDistinct = false;
         switch ($sortType) {
             case "distinct" :
                 $getLogs = $this->connectionsManager->getDistinctLogsForDisplay();
+                $isDistinct = true;
                 break;
             default :
                 $getLogs = $this->connectionsManager->getAllLogsForDisplay();
@@ -78,6 +80,7 @@ class HomeController extends AbstractController
             'getLogs' => $getLogs,
             'logCount' => $logCount,
             'libCount' => $libCount,
+            'isDistinct' => $isDistinct,
         ]);
     }
 
