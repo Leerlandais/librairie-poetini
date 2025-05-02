@@ -75,25 +75,28 @@ class LogsManager extends AbstractManager
         $now = new DateTime();
         $counts = [
             "librel_day" => 0,
-            "librel_week" => 0,
-            "librel_month" => 0,
+            "librel_last7" => 0,
+            "librel_last30" => 0,
             "librel_total" => count($librel)
         ];
+
         foreach ($librel as $time) {
             $logTime = new DateTime($time);
+            $diffDays = (int)$now->diff($logTime)->format('%r%a'); // signed day difference
 
             if ($logTime->format('Y-m-d') === $now->format('Y-m-d')) {
                 $counts["librel_day"]++;
             }
 
-            if ($logTime->format('o-W') === $now->format('o-W')) {
-                $counts["librel_week"]++;
+            if ($diffDays >= -6 && $diffDays <= 0) {
+                $counts["librel_last7"]++;
             }
 
-            if ($logTime->format('Y-m') === $now->format('Y-m')) {
-                $counts["librel_month"]++;
+            if ($diffDays >= -29 && $diffDays <= 0) {
+                $counts["librel_last30"]++;
             }
         }
+
         return $counts;
     }
 
@@ -112,32 +115,35 @@ class LogsManager extends AbstractManager
         $now = new DateTime();
         $counts = [
             "conn_day" => 0,
-            "conn_week" => 0,
-            "conn_month" => 0,
+            "conn_last7" => 0,
+            "conn_last30" => 0,
             "conn_total" => count($logs)
         ];
 
         foreach ($logs as $time) {
             $logTime = new DateTime($time);
+            $diffDays = (int)$now->diff($logTime)->format('%r%a'); // relative days
 
             if ($logTime->format('Y-m-d') === $now->format('Y-m-d')) {
                 $counts["conn_day"]++;
             }
 
-            if ($logTime->format('o-W') === $now->format('o-W')) {
-                $counts["conn_week"]++;
+            if ($diffDays >= -6 && $diffDays <= 0) {
+                $counts["conn_last7"]++;
             }
 
-            if ($logTime->format('Y-m') === $now->format('Y-m')) {
-                $counts["conn_month"]++;
+            if ($diffDays >= -29 && $diffDays <= 0) {
+                $counts["conn_last30"]++;
             }
         }
+
         return $counts;
     }
 
+
     public function getLoginDetails() : array
     {
-        $query = $this->db->query("SELECT * FROM `logins`");
+        $query = $this->db->query("SELECT * FROM `logins` ORDER BY `login_id` DESC");
         $loginMap = [];
         while ($result = $query->fetch()){
             $loginMap[] = new LoginsMapping($result);
