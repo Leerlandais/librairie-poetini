@@ -9,6 +9,7 @@
         <tr class="bg-blue-gray-100 text-center text-gray-700">
             <th class="py-3 px-4 cursor-pointer" onclick="sortTable(0)">IP Address</th>
             <th class="py-3 px-4 cursor-pointer" onclick="sortTable(1)">Connection</th>
+            <th class="py-3 px-4 cursor-pointer" onclick="sortTable(2)">Date/Time</th>
         </tr>
         </thead>
         <tbody class="text-blue-gray-900">
@@ -24,6 +25,7 @@
                 {% endif %}
                 <td class="py-3 px-4">{{ connectIp }}</td>
                 <td class="py-3 px-4">{{ logs.isLoginSuccess ? 'True' : 'False' }}</td>
+                <td class="py-3 px-4">{{ logs.getLoginDate }}</td>
             </tr>
         {% endfor %}
         </tbody>

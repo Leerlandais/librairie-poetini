@@ -8,6 +8,7 @@ class LoginsMapping extends AbstractMapping
 {
     private ?int $login_id;
     private string $login_ip;
+    private string $login_date;
     private bool $login_success;
 
     public function getLoginId(): ?int
@@ -33,6 +34,19 @@ class LoginsMapping extends AbstractMapping
         $login_ip = $this->standardClean($login_ip);
         $this->login_ip = $login_ip;
     }
+
+    public function getLoginDate(): string
+    {
+        return $this->login_date;
+    }
+
+    public function setLoginDate(string $login_date): void
+    {
+        $login_date = $this->standardClean($login_date);
+        $this->login_date = $login_date;
+    }
+
+
 
     public function isLoginSuccess(): bool
     {
